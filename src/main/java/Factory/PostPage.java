@@ -22,6 +22,9 @@ public class PostPage {
     private WebElement postCaption;
     @FindBy(id = "create-post")
     private WebElement createPostButton;
+    @FindBy(xpath = "//*[@class='form-group']/input[@type='file']")
+    private WebElement uploadFile;
+
 
     @FindBy(xpath = "//label[@class='post-status-label custom-control-label active' and @for='customSwitch2']")
     private WebElement privatePost;
@@ -33,12 +36,14 @@ public class PostPage {
     }
 
     public boolean isNewPostLoaded() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(newPostTitle));
         return newPostTitle.isDisplayed();
     }
 
     public void uploadPicture(File file) {
         ////*[@class='form-group']//div/input[@type='file'] - hidden
-        WebElement uploadFile = webDriver.findElement(By.xpath("//*[@class='form-group']/input[@type='file']"));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
         uploadFile.sendKeys(file.getAbsolutePath());
     }
 
@@ -49,6 +54,7 @@ public class PostPage {
         }
         return false;
     }
+
     public String uploadedImageText() {
         return uploadPictureText.getAttribute("placeholder");
     }
@@ -63,6 +69,7 @@ public class PostPage {
         privatePost.click();
 
     }
+
     public void clickCreatePost() {
 
         createPostButton.isEnabled();
