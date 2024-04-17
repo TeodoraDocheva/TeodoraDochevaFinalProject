@@ -25,8 +25,17 @@ public class LoginPage {
     private WebElement rememberMeCheckbox;
     @FindBy(id = "sign-in-button")
     private WebElement signInButton;
+
+    @FindBy (xpath = "//div[contains(@aria-label, 'Successful login')]")
+    private WebElement successfullLogin;
+
     @FindBy(id = "toast-container")
     private WebElement userNotFound;
+
+
+
+    //success + fail
+
 
     public LoginPage(WebDriver driver){
         this.webDriver = driver;
@@ -71,6 +80,8 @@ public class LoginPage {
         return userNotFound.isDisplayed();
     }
 
+
+
     public void navigateTo() {
         this.webDriver.get(PAGE_URL);
     }
@@ -80,6 +91,12 @@ public class LoginPage {
         fillInPassword(password);
         clickRememberMe();
         clickSignIn();
+    }
+
+    public boolean isSuccessLoginMessageShown () {
+        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOf(successfullLogin));
+        return successfullLogin.isDisplayed();
     }
 
 }

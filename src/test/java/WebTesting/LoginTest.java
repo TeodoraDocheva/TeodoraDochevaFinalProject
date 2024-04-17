@@ -4,6 +4,7 @@ import Factory.Header;
 import Factory.HomePage;
 import Factory.LoginPage;
 import Factory.ProfilePage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -53,6 +54,7 @@ public class LoginTest extends TestObject {
         header.clickProfile();
 
         Assert.assertTrue(profilePage.isUrlLoaded(userID), "Current page in not profile page for " + userID + " user");
+        Assert.assertTrue(loginPage.isSuccessLoginMessageShown(), "Success Login message is not shown");
 
     }
 
@@ -70,6 +72,8 @@ public class LoginTest extends TestObject {
         loginPage.clickRememberMe();
         loginPage.clickSignIn();
         Assert.assertTrue(loginPage.isUserNotFoundShown(), "User not found message is not shown");
+        Assert.assertTrue(homePage.isURLLoaded(), "Home page is not loaded");
+        // home + login
     }
 
     @Test(dataProvider = "wrongPassword")
@@ -85,6 +89,7 @@ public class LoginTest extends TestObject {
         loginPage.clickRememberMe();
         loginPage.clickSignIn();
         Assert.assertTrue(loginPage.isUserNotFoundShown(), "User not found message is not shown");
+        Assert.assertTrue(homePage.isURLLoaded(), "Home page is not loaded");
 
     }
 }
