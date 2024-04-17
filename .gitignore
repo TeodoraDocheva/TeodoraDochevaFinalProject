@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+!src/test/resources/download/text.txt
+!src/test/resources/reports/text.txt
+!src/test/resources/screenshots/text.txt
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
