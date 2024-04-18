@@ -70,7 +70,7 @@ public class PostPage {
 
     }
 
-   //  public boolean isPostPrivate() {return privatePostSelected.isEnabled();}
+
 
     public void clickCreatePost() {
 
