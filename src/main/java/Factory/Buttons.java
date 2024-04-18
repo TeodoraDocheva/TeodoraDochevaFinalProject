@@ -28,16 +28,17 @@ public class Buttons {
     }
 
     public void clickLikeButtonOnMostRecentPost() {
-
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-
         try {
-            Thread.sleep(1000); // Sleep for 1 second
+            Thread.sleep(3000); // Sleep for 3 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+
+
         wait.until(ExpectedConditions.elementToBeClickable(likeButton));
+
         likeButton.click();
     }
 }
