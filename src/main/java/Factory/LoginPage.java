@@ -26,17 +26,6 @@ public class LoginPage {
     @FindBy(id = "sign-in-button")
     private WebElement signInButton;
 
-    @FindBy (xpath = "//div[contains(@aria-label, 'Successful login')]")
-    private WebElement successfullLogin;
-
-    @FindBy(id = "toast-container")
-    private WebElement userNotFound;
-
-
-
-    //success + fail
-
-
     public LoginPage(WebDriver driver){
         this.webDriver = driver;
         PageFactory.initElements(driver, this);
@@ -74,14 +63,6 @@ public class LoginPage {
         signInButton.click();
     }
 
-    public boolean isUserNotFoundShown() {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOf(userNotFound));
-        return userNotFound.isDisplayed();
-    }
-
-
-
     public void navigateTo() {
         this.webDriver.get(PAGE_URL);
     }
@@ -92,11 +73,4 @@ public class LoginPage {
         clickRememberMe();
         clickSignIn();
     }
-
-    public boolean isSuccessLoginMessageShown () {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOf(successfullLogin));
-        return successfullLogin.isDisplayed();
-    }
-
 }

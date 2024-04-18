@@ -1,12 +1,6 @@
 package WebTesting;
 
-//import Object.*;
-//import Factory.Header;
-
-import Factory.Header;
-import Factory.HomePage;
-import Factory.LoginPage;
-import Factory.ProfilePage;
+import Factory.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,6 +19,7 @@ public class LogoutTest extends TestObject {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
 
         homePage.navigateTo();
 
@@ -33,6 +28,8 @@ public class LogoutTest extends TestObject {
         loginPage.completeSingIn(username, password);
 
         header.clickLogOut();
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Successful logout!");
 
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page in not login page ");
     }

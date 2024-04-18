@@ -1,9 +1,6 @@
 package WebTesting;
 
-import Factory.Header;
-import Factory.LoginPage;
-import Factory.PostPage;
-import Factory.ProfilePage;
+import Factory.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -34,6 +31,8 @@ public class PostTest extends TestObject {
         LoginPage loginPage = new LoginPage(webDriver);
         ProfilePage profilePage = new ProfilePage(webDriver);
         PostPage postPage = new PostPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
+
 
         loginPage.navigateTo();
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page is not Login");
@@ -53,6 +52,9 @@ public class PostTest extends TestObject {
         postPage.typePostCaption(caption);
         postPage.clickCreatePost();
 
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Post created!");
+
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
         }
 
@@ -63,10 +65,12 @@ public class PostTest extends TestObject {
         LoginPage loginPage = new LoginPage(webDriver);
         ProfilePage profilePage = new ProfilePage(webDriver);
         PostPage postPage = new PostPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
 
         loginPage.navigateTo();
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page is not Login");
         loginPage.completeSingIn(username,password);
+
 
         header.clickProfile();
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
@@ -81,7 +85,11 @@ public class PostTest extends TestObject {
 
         postPage.typePostCaption(caption);
         postPage.clickPrivatePost();
+      //  Assert.assertTrue(postPage.isPostPrivate(), "Post is not private");
         postPage.clickCreatePost();
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Post created!");
 
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
         }

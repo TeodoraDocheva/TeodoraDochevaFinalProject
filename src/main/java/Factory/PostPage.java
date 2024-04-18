@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class PostPage {
 
@@ -24,8 +25,6 @@ public class PostPage {
     private WebElement createPostButton;
     @FindBy(xpath = "//*[@class='form-group']/input[@type='file']")
     private WebElement uploadFile;
-
-
     @FindBy(xpath = "//label[@class='post-status-label custom-control-label active' and @for='customSwitch2']")
     private WebElement privatePost;
 
@@ -65,13 +64,21 @@ public class PostPage {
 
     public void clickPrivatePost() {
         WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait.until(ExpectedConditions.elementToBeClickable(privatePost));
         privatePost.click();
 
     }
 
+   //  public boolean isPostPrivate() {return privatePostSelected.isEnabled();}
+
     public void clickCreatePost() {
 
+        try {
+            Thread.sleep(2000); // Sleep for 2 seconds
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         createPostButton.isEnabled();
         createPostButton.click();
     }

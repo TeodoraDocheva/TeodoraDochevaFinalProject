@@ -21,7 +21,6 @@ public class Header {
     private WebElement signOutButton;
 
 
-
    public Header(WebDriver driver){
        this.webDriver = driver;
        PageFactory.initElements(webDriver, this);
@@ -37,7 +36,6 @@ public class Header {
       wait.until(ExpectedConditions.elementToBeClickable(newPostLink));
       newPostLink.click();
    }
-
 
    public void clickProfile(){
        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));

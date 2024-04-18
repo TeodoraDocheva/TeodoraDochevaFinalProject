@@ -23,16 +23,12 @@ public class RegisterPage {
     private WebElement registrationLink; //
     @FindBy(xpath = "//*[@name='username']")
     private WebElement usernameTextField;
-
     @FindBy(xpath = "//*[@type='email']")
     private WebElement emailTextField;
-
     @FindBy(id = "defaultRegisterFormPassword")
     private WebElement passwordTextField;
-
     @FindBy(id = "defaultRegisterPhonePassword")
     private WebElement confirmPasswordTextField;
-
     @FindBy(id = "sign-in-button")
     private WebElement registerButton;
 
@@ -70,7 +66,6 @@ public class RegisterPage {
         public void registrationButton () {
             registerButton.click();
         }
-
 
         public boolean isRegPageLoaded () {
             WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));

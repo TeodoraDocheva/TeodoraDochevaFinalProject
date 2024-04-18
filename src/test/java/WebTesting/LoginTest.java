@@ -4,10 +4,10 @@ import Factory.Header;
 import Factory.HomePage;
 import Factory.LoginPage;
 import Factory.ProfilePage;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import Factory.ToastContainer;
 
 public class LoginTest extends TestObject {
 
@@ -17,8 +17,9 @@ public class LoginTest extends TestObject {
                 {"t@k.com", "t@k.com", "5563"},
         };
     }
+
     @DataProvider(name = "wrongUser")
-    public Object[][] wrongUsers() {
+    public Object[][] wrongUser() {
         return new Object[][]{
                 {"t@kk.com", "t@k.com"},
         };
@@ -27,7 +28,7 @@ public class LoginTest extends TestObject {
     @DataProvider(name = "wrongPassword")
     public Object[][] wrongPassword() {
         return new Object[][]{
-                {"t@kk.com", "t@k.comm"},
+                {"t@k.com", "t@k.comm"},
         };
     }
 
@@ -38,6 +39,8 @@ public class LoginTest extends TestObject {
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
         ProfilePage profilePage = new ProfilePage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
+
 
         homePage.navigateTo();
         Assert.assertTrue(homePage.isURLLoaded(), "Home page is not loaded");
@@ -51,18 +54,20 @@ public class LoginTest extends TestObject {
         Assert.assertTrue(loginPage.isCheckedRememberMe(), "Remember me checkbox is not checked.");
 
         loginPage.clickSignIn();
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Successful login!");
+
         header.clickProfile();
-
         Assert.assertTrue(profilePage.isUrlLoaded(userID), "Current page in not profile page for " + userID + " user");
-        Assert.assertTrue(loginPage.isSuccessLoginMessageShown(), "Success Login message is not shown");
-
     }
 
     @Test(dataProvider = "wrongUser")
-    public void wrongUserLoginTest (String username, String password) {
+    public void wrongUserLoginTest(String username, String password) {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
 
         homePage.navigateTo();
         header.clickLogin();
@@ -71,16 +76,19 @@ public class LoginTest extends TestObject {
         loginPage.fillInPassword(password);
         loginPage.clickRememberMe();
         loginPage.clickSignIn();
-        Assert.assertTrue(loginPage.isUserNotFoundShown(), "User not found message is not shown");
-        Assert.assertTrue(homePage.isURLLoaded(), "Home page is not loaded");
-        // home + login
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "User not found");
+
+        Assert.assertTrue(loginPage.isUrlLoaded(), "Home page is not loaded");
     }
 
     @Test(dataProvider = "wrongPassword")
-    public void wrongPasswordTest (String username, String password) {
+    public void wrongPasswordTest(String username, String password) {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
 
         homePage.navigateTo();
         header.clickLogin();
@@ -88,8 +96,11 @@ public class LoginTest extends TestObject {
         loginPage.fillInPassword(password);
         loginPage.clickRememberMe();
         loginPage.clickSignIn();
-        Assert.assertTrue(loginPage.isUserNotFoundShown(), "User not found message is not shown");
-        Assert.assertTrue(homePage.isURLLoaded(), "Home page is not loaded");
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Ivalid password");
+
+        Assert.assertTrue(loginPage.isUrlLoaded(), "Home page is not loaded");
 
     }
 }
