@@ -1,6 +1,7 @@
 package Factory;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidArgumentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,9 +26,8 @@ public class PostPage {
     private WebElement createPostButton;
     @FindBy(xpath = "//*[@class='form-group']/input[@type='file']")
     private WebElement uploadFile;
-    @FindBy(xpath = "//label[@class='post-status-label custom-control-label active' and @for='customSwitch2']")
-    private WebElement privatePost;
-
+    @FindBy(css = "label.custom-control-label")
+    private WebElement radioButton;
 
     public PostPage(WebDriver driver) {
         this.webDriver = driver;
@@ -65,17 +65,35 @@ public class PostPage {
     public void clickPrivatePost() {
         WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wait.until(ExpectedConditions.elementToBeClickable(privatePost));
-        privatePost.click();
+        wait.until(ExpectedConditions.elementToBeClickable(radioButton));
+        radioButton.click();
 
     }
 
+    public boolean IsButtonPublic(){
+        return radioButton.getAttribute("class").contains("active");
+    }
 
-
+    public void SetRadioButtonValue(String toggleValue){
+        switch(toggleValue.toLowerCase()) {
+            case "public":
+                if(IsButtonPublic() == false){
+                    radioButton.click();
+                }
+                break;
+            case "private":
+                if(IsButtonPublic()){
+                    radioButton.click();
+                }
+                break;
+            default:
+                throw new InvalidArgumentException(toggleValue + " toggle value is not supported");
+        }
+    }
     public void clickCreatePost() {
 
         try {
-            Thread.sleep(2000); // Sleep for 2 seconds
+            Thread.sleep(3000); // Sleep for 2 seconds
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

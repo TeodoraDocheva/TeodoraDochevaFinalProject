@@ -50,6 +50,7 @@ public class PostTest extends TestObject {
         Assert.assertEquals(actualImageText, "upload.jpg", "Incorrect image is uploaded!");
 
         postPage.typePostCaption(caption);
+
         postPage.clickCreatePost();
 
         String toastMessage = toastContainer.getToastMessage();
@@ -71,7 +72,6 @@ public class PostTest extends TestObject {
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page is not Login");
         loginPage.completeSingIn(username,password);
 
-
         header.clickProfile();
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
 
@@ -84,6 +84,9 @@ public class PostTest extends TestObject {
         Assert.assertEquals(actualImageText, "upload.jpg", "Incorrect image is uploaded!");
 
         postPage.typePostCaption(caption);
+
+        postPage.SetRadioButtonValue("public");
+        Assert.assertTrue(postPage.IsButtonPublic(), "Post is not private");
         postPage.clickPrivatePost();
 
         postPage.clickCreatePost();
