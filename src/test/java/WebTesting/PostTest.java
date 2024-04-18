@@ -85,7 +85,7 @@ public class PostTest extends TestObject {
 
         postPage.typePostCaption(caption);
         postPage.clickPrivatePost();
-      //  Assert.assertTrue(postPage.isPostPrivate(), "Post is not private");
+
         postPage.clickCreatePost();
 
         String toastMessage = toastContainer.getToastMessage();
