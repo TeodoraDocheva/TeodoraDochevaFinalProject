@@ -25,7 +25,7 @@ public class PostTest extends TestObject {
         };
     }
     @Test(dataProvider = "getUser")
-    public void testCreatePublicPost(String username, String password, String userId, File postPicture, String caption){
+    public void testCreatePublicPost(String username, String password, String userId, File postPicture, String caption) throws InterruptedException{
         WebDriver webDriver = super.getWebDriver();
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -60,7 +60,7 @@ public class PostTest extends TestObject {
         }
 
     @Test(dataProvider = "getUser")
-    public void testCreatePrivatePost(String username, String password, String userId, File postPicture, String caption){
+    public void testCreatePrivatePost(String username, String password, String userId, File postPicture, String caption) throws InterruptedException{
         WebDriver webDriver = super.getWebDriver();
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -88,7 +88,7 @@ public class PostTest extends TestObject {
         postPage.SetRadioButtonValue("public");
         Assert.assertTrue(postPage.IsButtonPublic(), "Post is not private");
         postPage.clickPrivatePost();
-
+        
         postPage.clickCreatePost();
 
         String toastMessage = toastContainer.getToastMessage();

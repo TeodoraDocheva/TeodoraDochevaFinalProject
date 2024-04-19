@@ -90,13 +90,8 @@ public class PostPage {
                 throw new InvalidArgumentException(toggleValue + " toggle value is not supported");
         }
     }
-    public void clickCreatePost() {
-
-        try {
-            Thread.sleep(3000); // Sleep for 2 seconds
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void clickCreatePost() throws InterruptedException {
+        Thread.sleep(3000); // Sleep for 3 seconds
         createPostButton.isEnabled();
         createPostButton.click();
     }
