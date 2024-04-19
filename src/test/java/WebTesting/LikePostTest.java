@@ -16,7 +16,7 @@ public class LikePostTest extends TestObject {
         };
     }
     @Test(dataProvider = "getUser")
-    public void LikeButton(String username, String password) {
+    public void LikeButton(String username, String password) throws InterruptedException {
 
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);

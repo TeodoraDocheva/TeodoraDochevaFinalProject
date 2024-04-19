@@ -33,7 +33,7 @@ public class LoginTest extends TestObject {
     }
 
     @Test(dataProvider = "getUser")
-    public void loginTest(String username, String password, String userID) {
+    public void loginTest(String username, String password, String userID) throws InterruptedException {
 
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
@@ -63,7 +63,7 @@ public class LoginTest extends TestObject {
     }
 
     @Test(dataProvider = "wrongUser")
-    public void wrongUserLoginTest(String username, String password) {
+    public void wrongUserLoginTest(String username, String password) throws InterruptedException {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -84,7 +84,7 @@ public class LoginTest extends TestObject {
     }
 
     @Test(dataProvider = "wrongPassword")
-    public void wrongPasswordTest(String username, String password) {
+    public void wrongPasswordTest(String username, String password) throws InterruptedException {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);

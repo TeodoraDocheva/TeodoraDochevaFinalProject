@@ -26,9 +26,10 @@ public class ToastContainer {
         PageFactory.initElements(this.webDriver, this);
     }
 
-    public String getToastMessage() {
+    public String getToastMessage() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(toastContainer));
+        Thread.sleep(500); // Sleep for 3 seconds
         return toastMessage.getText();
     }
 

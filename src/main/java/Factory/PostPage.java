@@ -91,7 +91,7 @@ public class PostPage {
         }
     }
     public void clickCreatePost() throws InterruptedException {
-        Thread.sleep(3000); // Sleep for 3 seconds
+        Thread.sleep(4000); // Sleep for 4 seconds
         createPostButton.isEnabled();
         createPostButton.click();
     }
