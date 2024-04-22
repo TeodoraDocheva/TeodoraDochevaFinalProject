@@ -2,7 +2,7 @@ package WebTesting;
 
 import Factory.*;
 
-import Factory.RegisterPage;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -14,6 +14,7 @@ public class RegisterTest extends TestObject {
         HomePage homePage = new HomePage(webDriver);
         RegisterPage registerPage = new RegisterPage(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
+        ToastContainer toastContainer = new ToastContainer(webDriver);
 
         homePage.navigateTo();
         homePage.isURLLoaded();
@@ -35,6 +36,7 @@ public class RegisterTest extends TestObject {
 
         registerPage.registrationButton();
         Assert.assertTrue(homePage.isURLLoaded(), "User is not successfully registered");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
     }
 }

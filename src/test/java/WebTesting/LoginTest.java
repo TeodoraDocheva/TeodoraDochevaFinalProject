@@ -33,7 +33,7 @@ public class LoginTest extends TestObject {
     }
 
     @Test(dataProvider = "getUser")
-    public void loginTest(String username, String password, String userID) throws InterruptedException {
+    public void loginTest(String username, String password, String userID)  {
 
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
@@ -57,13 +57,14 @@ public class LoginTest extends TestObject {
 
         String toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "Successful login!");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         header.clickProfile();
         Assert.assertTrue(profilePage.isUrlLoaded(userID), "Current page in not profile page for " + userID + " user");
     }
 
     @Test(dataProvider = "wrongUser")
-    public void wrongUserLoginTest(String username, String password) throws InterruptedException {
+    public void wrongUserLoginTest(String username, String password)  {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -79,12 +80,12 @@ public class LoginTest extends TestObject {
 
         String toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "User not found");
-
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
         Assert.assertTrue(loginPage.isUrlLoaded(), "Home page is not loaded");
     }
 
     @Test(dataProvider = "wrongPassword")
-    public void wrongPasswordTest(String username, String password) throws InterruptedException {
+    public void wrongPasswordTest(String username, String password)  {
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -100,8 +101,9 @@ public class LoginTest extends TestObject {
         String toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "Ivalid password");
 
-        Assert.assertTrue(loginPage.isUrlLoaded(), "Home page is not loaded");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
+        Assert.assertTrue(loginPage.isUrlLoaded(), "Home page is not loaded");
     }
 }
 

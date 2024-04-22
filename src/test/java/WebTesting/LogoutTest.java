@@ -14,7 +14,7 @@ public class LogoutTest extends TestObject {
         };
     }
     @Test(dataProvider = "getUser")
-    public void logoutTest(String username, String password) throws InterruptedException {
+    public void logoutTest(String username, String password)  {
 
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
@@ -30,6 +30,7 @@ public class LogoutTest extends TestObject {
         header.clickLogOut();
         String toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "Successful logout!");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page in not login page ");
     }

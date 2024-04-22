@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class PostPage {
 
     private final WebDriver webDriver;
+    private final WebDriverWait wait;
+
     @FindBy(xpath = "//h3[text()='Post a picture to share with your awesome followers']")
     private WebElement newPostTitle;
     @FindBy(xpath = "//input[@class='form-control input-lg'][@type='text']")
@@ -31,27 +33,22 @@ public class PostPage {
 
     public PostPage(WebDriver driver) {
         this.webDriver = driver;
+        this.wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         PageFactory.initElements(webDriver, this);
     }
 
     public boolean isNewPostLoaded() {
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(newPostTitle));
         return newPostTitle.isDisplayed();
     }
 
     public void uploadPicture(File file) {
-        ////*[@class='form-group']//div/input[@type='file'] - hidden
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
         uploadFile.sendKeys(file.getAbsolutePath());
     }
 
     public boolean isImageUploaded(String fileName) {
         String actualText = uploadPictureText.getAttribute("placeholder");
-        if (actualText.equals(fileName)) {
-            return true;
-        }
-        return false;
+        return actualText.equals(fileName);
     }
 
     public String uploadedImageText() {
@@ -63,35 +60,32 @@ public class PostPage {
     }
 
     public void clickPrivatePost() {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wait.until(ExpectedConditions.elementToBeClickable(radioButton));
         radioButton.click();
-
     }
 
-    public boolean IsButtonPublic(){
+    public boolean IsButtonPublic() {
         return radioButton.getAttribute("class").contains("active");
     }
 
-    public void SetRadioButtonValue(String toggleValue){
-        switch(toggleValue.toLowerCase()) {
+    public void SetRadioButtonValue(String toggleValue) {
+        switch (toggleValue.toLowerCase()) {
             case "public":
-                if(IsButtonPublic() == false){
+                if (!IsButtonPublic()) {
                     radioButton.click();
                 }
                 break;
             case "private":
-                if(IsButtonPublic()){
+                if (IsButtonPublic()) {
                     radioButton.click();
                 }
                 break;
             default:
-                throw new InvalidArgumentException(toggleValue + " toggle value is not supported");
+                throw new IllegalArgumentException(toggleValue + " toggle value is not supported");
         }
     }
-    public void clickCreatePost() throws InterruptedException {
-        Thread.sleep(4000); // Sleep for 4 seconds
+
+    public void clickCreatePost() {
         createPostButton.isEnabled();
         createPostButton.click();
     }

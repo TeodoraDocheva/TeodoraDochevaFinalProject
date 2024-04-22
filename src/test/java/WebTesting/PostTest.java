@@ -25,7 +25,7 @@ public class PostTest extends TestObject {
         };
     }
     @Test(dataProvider = "getUser")
-    public void testCreatePublicPost(String username, String password, String userId, File postPicture, String caption) throws InterruptedException{
+    public void testCreatePublicPost(String username, String password, String userId, File postPicture, String caption) {
         WebDriver webDriver = super.getWebDriver();
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -33,10 +33,14 @@ public class PostTest extends TestObject {
         PostPage postPage = new PostPage(webDriver);
         ToastContainer toastContainer = new ToastContainer(webDriver);
 
-
         loginPage.navigateTo();
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page is not Login");
         loginPage.completeSingIn(username,password);
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Successful login!");
+
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");;
 
         header.clickProfile();
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
@@ -50,17 +54,19 @@ public class PostTest extends TestObject {
         Assert.assertEquals(actualImageText, "upload.jpg", "Incorrect image is uploaded!");
 
         postPage.typePostCaption(caption);
-
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
         postPage.clickCreatePost();
 
-        String toastMessage = toastContainer.getToastMessage();
+        toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "Post created!");
+
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
         }
 
     @Test(dataProvider = "getUser")
-    public void testCreatePrivatePost(String username, String password, String userId, File postPicture, String caption) throws InterruptedException{
+    public void testCreatePrivatePost(String username, String password, String userId, File postPicture, String caption) {
         WebDriver webDriver = super.getWebDriver();
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
@@ -71,6 +77,11 @@ public class PostTest extends TestObject {
         loginPage.navigateTo();
         Assert.assertTrue(loginPage.isUrlLoaded(), "Current page is not Login");
         loginPage.completeSingIn(username,password);
+
+        String toastMessage = toastContainer.getToastMessage();
+        Assert.assertEquals(toastMessage, "Successful login!");
+
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         header.clickProfile();
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
@@ -88,11 +99,13 @@ public class PostTest extends TestObject {
         postPage.SetRadioButtonValue("public");
         Assert.assertTrue(postPage.IsButtonPublic(), "Post is not private");
         postPage.clickPrivatePost();
-        
+
         postPage.clickCreatePost();
 
-        String toastMessage = toastContainer.getToastMessage();
+        toastMessage = toastContainer.getToastMessage();
         Assert.assertEquals(toastMessage, "Post created!");
+
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page in not profile page for " + userId + " user");
         }

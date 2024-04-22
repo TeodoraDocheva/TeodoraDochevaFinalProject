@@ -16,7 +16,7 @@ public class LikePostTest extends TestObject {
         };
     }
     @Test(dataProvider = "getUser")
-    public void LikeButton(String username, String password) throws InterruptedException {
+    public void LikeButton(String username, String password)  {
 
         HomePage homePage = new HomePage(webDriver);
         Header header = new Header(webDriver);
@@ -27,9 +27,14 @@ public class LikePostTest extends TestObject {
         homePage.navigateTo();
         header.clickLogin();
         loginPage.completeSingIn(username, password);
-        buttons.clickLikeButtonOnMostRecentPost();
+
         String toastMessage = toastContainer.getToastMessage();
-        Assert.assertEquals(toastMessage, "Post liked");
+        Assert.assertEquals(toastMessage, "Successful login!");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
+
+        buttons.clickLikeButtonOnMostRecentPost();
+        Assert.assertTrue(toastContainer.waitForToastMessage("Post liked"), "Toast message 'Post liked' did not appear.");
+        Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
     }
 }

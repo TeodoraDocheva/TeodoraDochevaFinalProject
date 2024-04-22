@@ -21,27 +21,27 @@ public class Header {
     private WebElement signOutButton;
 
 
-   public Header(WebDriver driver){
-       this.webDriver = driver;
-       PageFactory.initElements(webDriver, this);
-   }
+    public Header(WebDriver driver){
+        this.webDriver = driver;
+        PageFactory.initElements(webDriver, this);
+    }
 
-  public void clickLogin(){
-      WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-      wait.until(ExpectedConditions.elementToBeClickable(loginLink));
-      loginLink.click();
-  }
-  public void clickNewPost(){
-      WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-      wait.until(ExpectedConditions.elementToBeClickable(newPostLink));
-      newPostLink.click();
-   }
+    public void clickLogin(){
+        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(loginLink));
+        loginLink.click();
+    }
+    public void clickNewPost(){
+        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(newPostLink));
+        newPostLink.click();
+    }
 
-   public void clickProfile(){
-       WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-       wait.until(ExpectedConditions.elementToBeClickable(profilePageLink));
-       profilePageLink.click();
-   }
+    public void clickProfile(){
+        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(profilePageLink));
+        profilePageLink.click();
+    }
 
     public void clickLogOut() {
         WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));

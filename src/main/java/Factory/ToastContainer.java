@@ -24,13 +24,18 @@ public class ToastContainer {
         this.webDriver = driver;
         this.wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(20));
         PageFactory.initElements(this.webDriver, this);
+
     }
 
-    public String getToastMessage() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(20));
+    public String getToastMessage()  {
         wait.until(ExpectedConditions.visibilityOf(toastContainer));
-        Thread.sleep(500); // Sleep for 3 seconds
         return toastMessage.getText();
     }
 
+    public boolean isToastContainerHidden () {
+        return wait.until(ExpectedConditions.invisibilityOf(toastMessage));
+    }
+    public boolean waitForToastMessage(String message) {
+        return wait.until(ExpectedConditions.textToBePresentInElement(toastMessage, message));
+    }
 }

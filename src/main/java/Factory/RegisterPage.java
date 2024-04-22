@@ -14,6 +14,7 @@ import java.time.Duration;
 public class RegisterPage {
 
     private final WebDriver webDriver;
+    private final WebDriverWait wait;
 
     public static final String PAGE_URL_REG = "http://training.skillo-bg.com:4200/users/register";
 
@@ -35,6 +36,7 @@ public class RegisterPage {
 
     public RegisterPage(WebDriver driver) {
         this.webDriver = driver;
+        this.wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         PageFactory.initElements(webDriver, this);
     }
 
@@ -42,39 +44,33 @@ public class RegisterPage {
         return RandomStringUtils.randomAlphanumeric(4);
     }
     public void enterUsername(String username) {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(usernameTextField));
         usernameTextField.sendKeys(username);
     }
 
     public void enterEmail(String email) {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(emailTextField));
         emailTextField.sendKeys(email);
     }
     public void enterPassword(String password) {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(passwordTextField));
         passwordTextField.sendKeys(password);
     }
 
     public void confirmPassword(String password) {
-        WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(confirmPasswordTextField));
         confirmPasswordTextField.sendKeys(password);
     }
-        public void registrationButton () {
-            registerButton.click();
-        }
-
-        public boolean isRegPageLoaded () {
-            WebDriverWait wait = new WebDriverWait(this.webDriver, Duration.ofSeconds(15));
-            return wait.until(ExpectedConditions.urlToBe(PAGE_URL_REG));
-        }
-
-        public void navigateToReg () {
-            this.webDriver.get(PAGE_URL_REG);
-        }
-
+    public void registrationButton () {
+        registerButton.click();
     }
 
+    public boolean isRegPageLoaded () {
+        return wait.until(ExpectedConditions.urlToBe(PAGE_URL_REG));
+    }
+
+    public void navigateToReg () {
+        this.webDriver.get(PAGE_URL_REG);
+    }
+
+}
