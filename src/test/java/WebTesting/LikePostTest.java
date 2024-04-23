@@ -5,8 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
 public class LikePostTest extends TestObject {
 
     @DataProvider(name = "getUser")
@@ -22,7 +20,7 @@ public class LikePostTest extends TestObject {
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
         ToastContainer toastContainer = new ToastContainer(webDriver);
-        Buttons buttons = new Buttons(webDriver);
+        LikeButton buttons = new LikeButton(webDriver);
 
         homePage.navigateTo();
         header.clickLogin();

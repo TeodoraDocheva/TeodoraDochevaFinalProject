@@ -4,16 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.time.Duration;
-import java.util.List;
 
 
-public class Buttons {
+public class LikeButton {
     private final WebDriver webDriver;
 
     @FindBy(xpath = "//i[contains(@class, 'far fa-heart fa-2x')]")
@@ -22,7 +20,7 @@ public class Buttons {
     @FindBy(xpath = "//i[contains(@class, 'far') and contains(@class, 'fa-heart') and contains(@class, 'liked')]")
     private WebElement likedButtonState;
 
-    public Buttons(WebDriver driver) {
+    public LikeButton(WebDriver driver) {
         this.webDriver = driver;
         PageFactory.initElements(driver, this);
     }
