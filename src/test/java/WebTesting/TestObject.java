@@ -22,7 +22,6 @@ import java.util.Map;
 
 public class TestObject {
     public static final String TEST_RESOURCES_DIR = "src\\test\\resources\\";
-    public static final String DOWNLOAD_DIR = TEST_RESOURCES_DIR.concat("download\\");
     public static final String SCREENSHOTS_DIR = TEST_RESOURCES_DIR.concat("screenshots\\");
     public static final String REPORTS_DIR = TEST_RESOURCES_DIR.concat("reports\\");
     protected WebDriver webDriver;
@@ -47,10 +46,6 @@ public class TestObject {
         quitDriver();
     }
     @AfterSuite
-    public void deleteDownloadFiles() throws IOException{
-       cleanDirectory(DOWNLOAD_DIR);
-    }
-
     private void quitDriver() {
         if (this.webDriver != null){
             this.webDriver.quit();
@@ -63,9 +58,6 @@ public class TestObject {
 
     private ChromeOptions configChromeOptions(){
        Map<String, Object> prefs = new HashMap<>();
-       prefs.put("download.default_directory",
-               System.getProperty("user.dir").concat("\\").concat(DOWNLOAD_DIR));
-
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.addArguments("disable-popup-blocking");
