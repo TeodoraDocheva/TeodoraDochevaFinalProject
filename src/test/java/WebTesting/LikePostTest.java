@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class LikePostTest extends TestObject {
+public class LikePostTest extends TestObject  { //конкретен пост с лайк
 
     @DataProvider(name = "getUser")
     public Object[][] getUsers() {
@@ -20,7 +20,7 @@ public class LikePostTest extends TestObject {
         Header header = new Header(webDriver);
         LoginPage loginPage = new LoginPage(webDriver);
         ToastContainer toastContainer = new ToastContainer(webDriver);
-        LikeButton buttons = new LikeButton(webDriver);
+        Buttons buttons = new Buttons(webDriver);
 
         homePage.navigateTo();
         header.clickLogin();
@@ -30,7 +30,7 @@ public class LikePostTest extends TestObject {
         Assert.assertEquals(toastMessage, "Successful login!");
         Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
-        buttons.clickLikeButtonOnMostRecentPost();
+        buttons.clickLikeButton();
         Assert.assertTrue(toastContainer.waitForToastMessage("Post liked"), "Toast message 'Post liked' did not appear.");
         Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 

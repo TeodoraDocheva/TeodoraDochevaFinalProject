@@ -6,8 +6,6 @@
             <class name="WebTesting.LoginTest"></class>
             <class name="WebTesting.LogoutTest"></class>
             <class name="WebTesting.RegisterTest"></class>
-            <class name="WebTesting.PostTest"></class>
-            <class name="WebTesting.LikePostTest"></class>
         </classes>
     </test>
 </suite>

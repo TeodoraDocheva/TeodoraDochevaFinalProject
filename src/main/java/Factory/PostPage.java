@@ -18,8 +18,9 @@ public class PostPage {
     private final WebDriver webDriver;
     private final WebDriverWait wait;
 
-    @FindBy(xpath = "//h3[text()='Post a picture to share with your awesome followers']")
-    private WebElement newPostTitle;
+   // @FindBy(xpath = "//h3[text()='Post a picture to share with your awesome followers']")  //по-прости локатори тук и на лайка- прегледай и другите
+   @FindBy(xpath = "//*[@class='text-center']")
+   private WebElement newPostTitle;
     @FindBy(xpath = "//input[@class='form-control input-lg'][@type='text']")
     private WebElement uploadPictureText;
     @FindBy(name = "caption")

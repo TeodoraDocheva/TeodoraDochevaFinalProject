@@ -56,7 +56,7 @@ public class LoginTest extends TestObject {
         loginPage.clickSignIn();
 
         String toastMessage = toastContainer.getToastMessage();
-        Assert.assertEquals(toastMessage, "Successful login!");
+        Assert.assertEquals(toastMessage, "Successful login!!");
         Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         header.clickProfile();

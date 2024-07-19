@@ -1,0 +1,3 @@
+surefire reports with mvn clean test
+check and refactor the locators
+add tests for liking posts from the profile
