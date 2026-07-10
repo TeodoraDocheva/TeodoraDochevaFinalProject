@@ -65,11 +65,8 @@ public class ActionsFromProfilePage extends TestObject {
 
         profilePage.selectLastPost();
 
-
         buttons.clickLikeButton();
         Assert.assertTrue(toastContainer.waitForToastMessage("Post liked"), "Toast message 'Post liked' did not appear.");
-       // toastMessage = toastContainer.getToastMessage();
-       // Assert.assertEquals(toastMessage, "Post liked");
         Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
         buttons.clickDislikeButton();
@@ -78,18 +75,13 @@ public class ActionsFromProfilePage extends TestObject {
         Assert.assertEquals(toastMessage, "Post disliked");
         Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
-
         buttons.clickDeleteButton();
         buttons.clickDeleteConfirmYes();
         Assert.assertTrue(profilePage.isUrlLoaded(userId), "Current page is not the profile page for user " + userId);
-    //    Assert.assertTrue(toastContainer.waitForToastMessage("Post deleted!"), "Toast message 'Post deleted!' did not appear.");
- //      Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
         toastMessage = toastContainer.getToastMessage();
 
         System.out.println(toastMessage);
         Assert.assertTrue(toastContainer.waitForToastMessage("Post deleted!"), "Toast message 'Post deleted!' did not appear.");
-        //   Assert.assertEquals(toastMessage, "Post deleted!");
-        //    Assert.assertTrue(toastContainer.isToastContainerHidden(), "Toast message does not disappear.");
 
     }
 }
